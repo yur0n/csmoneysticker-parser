@@ -80,6 +80,8 @@ app.get('/skins', async (req, res) => {
 });
 
 async function auth(req, res, next) {
+	// req.user = { auth: true };
+	// return next()
 	req.user = { auth: false };
 	try {
 		const { auth } = res.locals.cookie;

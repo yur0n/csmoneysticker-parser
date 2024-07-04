@@ -57,16 +57,15 @@ clearButton.addEventListener('click', () => {
 async function start() {
     const minProfitCoef = 1 + parseFloat(localStorage.getItem('min-profit')) / 100;
     const defaultOverpay = (1 + parseFloat(localStorage.getItem('overpay')) / 100) || 0;
-
     const items = [];
-    const overpay = [{ defaultOverpay }];
+    let overpay = { defaultOverpay };
 
     await storage.iterate((value, key) => {
         items.push(value);
     }).catch(console.error);
 
     await storage2.iterate((value, key) => {
-        overpay.push(value);
+        overpay = {...overpay, [value.name]: (1 + parseFloat(value.overpay) / 100)};
     }).catch(console.error);
     
     const data = {
@@ -83,7 +82,8 @@ async function start() {
 
 window.addEventListener("message", (e) => {
     if (e.data.parsedSkinsSticker) {
-        const skins = e.data.parsedSkinsFloat
+        const skins = e.data.parsedSkinsSticker
+        console.log(skins)
         if (skins.error) {
 
             const row = document.createElement('div');
@@ -96,7 +96,6 @@ window.addEventListener("message", (e) => {
             }
             return;
         }
-        console.log(skins.length);
         const toBot = [];
         skins.forEach(skin => {
             if (histrory.includes(skin.id)) return;
@@ -109,9 +108,10 @@ window.addEventListener("message", (e) => {
                 <div class="info-main">
                     <div class="info-left">
                         <h4>Price: $${skin.price}</h4>
-                        <h4>Def Price: $${skin.defprice}</h4>
+                        <h4>Def Price: $${skin.defprice || ' '}</h4>
                         <h4>Profit: ${skin.profit}%</h4>
-                        <h4>Stickers Price: $${skin.totalStickersPrice}</h4>
+                        <h4>Stickers Price: $${skin.totalStickersPrice.toFixed(2)}</h4>
+                        <h4><a href="${skin.link}" target="_blank">СS.Money Link</a></h4>
                     </div>
                     <div class="info-right">
                     <h4>Stickers:</h3>

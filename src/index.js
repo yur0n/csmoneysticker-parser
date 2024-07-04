@@ -1,3 +1,10 @@
+// import app from './app.js'
+// import http from 'http';
+// const httpServer = http.createServer(app);
+// const server = httpServer.listen(3000, () => {
+//   console.log('HTTP Server running on port: 3000');
+// });
+
 import app from './app.js'
 import https from 'https';
 import socket from './socket.js';
@@ -15,11 +22,6 @@ try {
   console.log('Error connecting to DB', error.message);
 }
 
-// import http from 'http';
-// const httpServer = http.createServer(app);
-// const server = httpServer.listen(3000, () => {
-//   console.log('HTTP Server running on port: 3000');
-// });
 
 const port = process.env.PORT || 443;
 
