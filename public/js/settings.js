@@ -1,5 +1,5 @@
 
-const uploadBtn = document.querySelector('.logs__button__upload')
+const uploadBtn = document.querySelector('.logs__button__upload');
 const inputs = document.querySelectorAll('input');
 // const logsTable = document.querySelector('.logs-content__info');
 
