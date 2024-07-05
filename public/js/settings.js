@@ -26,6 +26,10 @@ uploadBtn.addEventListener('click', function() {
 					const [name, defPrice, maxPrice] = line.split(';').map(part => part.trim());
 					fileStorage.setItem(genKey(), { name, defPrice, maxPrice })
 				});
+	const row = document.createElement('div');
+        row.classList.add('table-content__info-row');
+        row.innerHtml = '<h3>Skins from your file have been added</h3>'
+	table.appendChild(row);
       };
 
       reader.onerror = function(e) {
