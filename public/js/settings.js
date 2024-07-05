@@ -1,5 +1,41 @@
+
+const uploadBtn = document.querySelector('.logs__button__upload')
 const inputs = document.querySelectorAll('input');
 // const logsTable = document.querySelector('.logs-content__info');
+
+const fileStorage = localforage.createInstance({ name: 'fileStorage' });
+
+uploadBtn.addEventListener('click', function() {
+  const hiddenInput = document.createElement('input');
+  hiddenInput.type = 'file';
+  hiddenInput.accept = '.txt';
+  hiddenInput.style.display = 'none';
+
+  hiddenInput.addEventListener('change', function() {
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsText(file);
+
+      reader.onload = function(e) {
+				fileStorage.clear()
+        const text = e.target.result
+				const lines = text.split('\n')
+				lines.forEach(line => {
+					const [name, defPrice, maxPrice] = line.split(';').map(part => part.trim());
+					fileStorage.setItem(genKey(), { name, defPrice, maxPrice })
+				});
+      };
+
+      reader.onerror = function(e) {
+        console.error("Error reading file:", e);
+      };
+    }
+  });
+
+  hiddenInput.click();
+});
 
 inputs.forEach(input => {
 	if (input.className == 'input input-sticker' || input.className == 'logs__button') return;

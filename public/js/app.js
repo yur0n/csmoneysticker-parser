@@ -63,6 +63,9 @@ async function start() {
     await storage.iterate((value, key) => {
         items.push(value);
     }).catch(console.error);
+    await fileStorage.iterate((value, key) => {
+        items.push(value);
+    }).catch(console.error);
 
     await storage2.iterate((value, key) => {
         overpay = {...overpay, [value.name]: (1 + parseFloat(value.overpay) / 100)};
