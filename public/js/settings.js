@@ -28,7 +28,7 @@ uploadBtn.addEventListener('click', function() {
 				});
 	const row = document.createElement('div');
         row.classList.add('table-content__info-row');
-        row.innerHtml = '<h3>Skins from your file have been added</h3>'
+        row.innerHTML = '<h3>Skins from your file have been added</h3>'
 	table.appendChild(row);
       };
 
